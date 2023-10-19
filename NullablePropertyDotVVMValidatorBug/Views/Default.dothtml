@@ -1,0 +1,37 @@
+﻿@viewModel NullablePropertyDotVVMValidatorBug.ViewModels.DefaultViewModel, NullablePropertyDotVVMValidatorBug
+@masterPage Views/MasterPage.dotmaster
+<dot:Content ContentPlaceHolderID="MainContent">
+
+    <div class="content">
+
+        <dot:ValidationSummary IncludeErrorsFromChildren="true" IncludeErrorsFromTarget="true" class="alert alert--danger" />
+
+
+        <h1>{{value: Title}}</h1>
+
+        <div DataContext="{value: Model}">
+
+            <form>
+
+                <bs:FormControl LabelText="Name"
+                                FormControlType="FormControl">
+                    <bs:TextBox Text="{value: Name}"
+                                Validator.Value="{value: Name}" />
+                </bs:FormControl>
+
+                <bs:FormControlComboBox LabelText="Level"
+                                        Validator.Value="{value: Enum}"
+                                        FormControlType="FormControl"
+                                        Validation.Enabled="false"
+                                        DataSource="{value: _root.RandomEnumValues}"
+                                        SelectedValue="{value: Enum}"
+                                        SelectionChanged="{command: _root.SelectionChanged()}" />
+
+                <bs:Button Click="{command: _root.Save()}" Type="Primary" ButtonTagName="button" Validation.Target="{value: _root.Model}">
+                    <bs:Icon Type="Save" />
+                    <dot:Literal Text="Save" RenderSpanElement="false" />
+                </bs:Button>
+            </form>
+
+        </div>
+</dot:Content>
